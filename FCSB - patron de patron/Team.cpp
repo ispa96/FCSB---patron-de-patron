@@ -1,4 +1,5 @@
 #include "Team.h"
+#include "Championship.h"
 
 #include <fstream>
 #include <string>
@@ -20,6 +21,17 @@ void Team::update_points() {
 	else if (m_status[m_status.size() - 1] == 'E')
 		m_points++;
 	else m_points += 3;
+}
+
+void Team::init_matches() {
+	Championship c;
+	for (auto& team : c.get_teams())
+		m_matches.emplace_back(team);
+}
+
+void Team::get_matches() {
+	for (auto& i : m_matches)
+		std::cout << i.get_name() << '\n';
 }
 
 void Team::init_playerlist() {

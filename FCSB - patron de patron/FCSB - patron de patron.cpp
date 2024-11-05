@@ -40,27 +40,20 @@ int main()
 
 	while (participate) {
 		/// o sa inceapa meciurile din campionat
-		
 		Championship championship;
-		std::cout << "*** " << championship.get_name() << " ***\n[WARNING]: Prima parte a SUPERLIGII va contine primele 15 meciuri din acest sezon.\n[WARNING]: Bafta !!!\n\n";
+		
+		/// initializeaza lista cu jucatorii de pe Transfermarkt
+		Transfermarkt transfermarkt;std::cout << "*** " << championship.get_name() << " ***\n[WARNING]: Prima parte a SUPERLIGII va contine primele 15 meciuri din acest sezon.\n[WARNING]: Bafta !!!\n\n";
 
-		/// adaug echipa mea in championship
+		/// adaug echipa mea in championship + initializam lotul echipei + initializam meciurile echipei
 		Team team("FCSB");
 		championship.add_team(team);
-
-		championship.display_rank();
+		team.init_playerlist();
+		team.init_matches();
 
 		/// afisarea clasamentului initial cu toate echipele
 		championship.display_rank();
 		std::cout << '\n';
-
-		/// initializez lista cu jucatori pentru echipa mea (FCSB)
-		team.init_playerlist();
-		// team.display_playerlist();
-
-		/// initializeaza lista cu jucatorii de pe Transfermarkt
-		Transfermarkt transfermarkt;
-		// transfermarkt.get_players();
 
 		std::cout << "\n\nDo you want to be the boss for the next year?\n";
 		std::cin >> str;

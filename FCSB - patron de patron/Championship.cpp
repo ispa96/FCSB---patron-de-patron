@@ -42,6 +42,10 @@ std::string Championship::get_name() {
 	return m_name;
 }
 
+std::vector<Team> Championship::get_teams() {
+	return m_teams;
+}
+
 void Championship::add_team(Team team) {
 	m_teams.emplace_back(team);
 }
