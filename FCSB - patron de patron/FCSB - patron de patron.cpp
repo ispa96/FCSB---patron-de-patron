@@ -8,6 +8,8 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <cstdlib>
+#include <ctime>
 
 #include "Championship.h"
 #include "Team.h"
@@ -43,13 +45,35 @@ int main()
 		Championship championship;
 		
 		/// initializeaza lista cu jucatorii de pe Transfermarkt
-		Transfermarkt transfermarkt;std::cout << "*** " << championship.get_name() << " ***\n[WARNING]: Prima parte a SUPERLIGII va contine primele 15 meciuri din acest sezon.\n[WARNING]: Bafta !!!\n\n";
+		Transfermarkt transfermarkt;
+		std::cout << "*** " << championship.get_name() << " ***\n[WARNING]: Prima parte a SUPERLIGII va contine primele 15 meciuri din acest sezon.\n[WARNING]: Bafta !!!\n\n";
 
 		/// adaug echipa mea in championship + initializam lotul echipei + initializam meciurile echipei
 		Team team("FCSB");
 		championship.add_team(team);
 		team.init_playerlist();
 		team.init_matches();
+
+		/// pentru randomizare
+		srand(static_cast <unsigned int> (time(0)));
+
+		/// joaca primele 15 meciuri din campionat
+		for (auto& _team : team.play_matches()) {
+			int goals1 = rand() % 100 + 1;
+			int goals2 = rand() % 100 + 1;
+
+			// std::cout << goals1 << ' ' << goals2 << '\n';
+			if (goals1 > goals2) team.increase_points();
+		}
+
+		/// scoate echipa cu punctajul vechi si o baga cu punctajul nou
+		auto teams = championship.get_teams();  
+		for (unsigned int i = 0; i < teams.size(); i++)
+			if (teams[i].get_name() == "FCSB") {
+				teams.erase(teams.begin() + i);
+				championship.add_team(team); 
+				break;
+			}
 
 		/// afisarea clasamentului initial cu toate echipele
 		championship.display_rank();

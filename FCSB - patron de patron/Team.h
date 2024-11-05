@@ -22,5 +22,7 @@ public:
 	void display_playerlist();
 	void init_matches();
 	void get_matches();
+	void increase_points();
+	std::vector<Team> play_matches();
 };
 

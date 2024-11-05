@@ -72,3 +72,11 @@ std::string Team::get_name() {
 unsigned int Team::get_points() {
 	return m_points;
 }
+
+void Team::increase_points() {
+	m_points += 3;
+}
+
+std::vector<Team> Team::play_matches() {
+	return m_matches;
+}
