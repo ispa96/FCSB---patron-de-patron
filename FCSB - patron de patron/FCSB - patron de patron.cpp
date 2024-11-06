@@ -21,13 +21,41 @@
 /// citeste jucatorii de pe transfermarkt
 std::ifstream fin("Transfermarkt.in");
 
-static void transform_answer(std::string& string)
-{
+static void transform_answer(std::string& string) {
 	unsigned int len = string.size();
 
 	for (unsigned int i = 0; i < len; i++)
 		if (string[i] >= 'a' and string[i] <= 'z')
 			string[i] -= 32;
+}
+
+static void print_sleep() {
+	std::string aux = "*****";
+	for (unsigned int i = 0; i < aux.size(); i++)
+		std::cout << aux[i], Sleep(100);
+}
+
+static void loading_bar() {
+	int times = 0, it = 1;
+	std::cout << '\n';
+
+	while (times != 30) {
+		system("cls");
+		std::cout << "-------------------------------";
+		std::cout << '\n';
+		std::cout << '|';
+		for (unsigned int j = 0; j < it - 1; j++)
+			std::cout << char(35);
+		for (unsigned int j = 0; j < 29 - times; j++)
+			std::cout << ' ';
+		std::cout << "|";
+		std::cout << '\n';
+		std::cout << "-------------------------------";
+
+		times++;
+		it++;
+		Sleep(30);
+	}
 }
 
 int main()
@@ -40,6 +68,7 @@ int main()
 	std::cout << "--- Bun venit la noul tau club ! ---\n";
 	std::cout << "Apasa [ENTER] pentru a incepe aventura !\n";
 	std::getline(std::cin, str);
+	system("cls");
 
 	while (participate) {
 		/// o sa inceapa meciurile din campionat
@@ -47,15 +76,12 @@ int main()
 		/// initializeaza lista cu jucatorii de pe Transfermarkt
 		Transfermarkt transfermarkt;
 
-		std::string string = "*****";
-		for (unsigned int i = 0; i < string.size(); i++)
-			std::cout << string[i], Sleep(100);
+		print_sleep();
 		std::cout << ' ';
 		championship.get_name();
 		std::cout << ' ';
-		for (unsigned int i = 0; i < string.size(); i++)
-			std::cout << string[i], Sleep(100);
-		std::cout << "\n[WARNING]: Prima parte a SUPERLIGII va contine primele 15 meciuri din acest sezon.\n";
+		print_sleep();
+		std::cout << "\n[WARNING]: Prima parte a SUPERLIGII va contine primele 15 meciuri din acest sezon.\n[WARNING]: Multa Bafta !!!\n";
 
 		/// adaug echipa mea in championship + initializam lotul echipei + initializam meciurile echipei
 		Team team("FCSB");
@@ -67,9 +93,11 @@ int main()
 		championship.display_rank();
 		std::cout << "\n";
 
-		std::cout << "[WARNING]: Multa Bafta !!!\n\n";
 		std::cout << "[WARNING]: Apasa [ENTER] pentru derularea primelor 15 meciuri din campionat !\n";
 		std::getline(std::cin, str);
+
+		loading_bar();
+		std::cout << "\n\n[WARNING]: Asa arata clasamentul dupa primele 15 meciuri !\n\n";
 
 		/// pentru randomizare
 		srand(static_cast <unsigned int> (time(0)));
@@ -135,7 +163,6 @@ int main()
 																						/// PERIOADA DE TRANSFERURI
 		/// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-		std::cout << "[WARNIMG]: Asa arata clasamentul dupa primele 15 meciuri !\n";
 		std::cout << "[WARNIMG]: Urmeaza perioada de transferuri !\n";
 		std::cout << "[WARNIMG]: Apasa [ENTER] pentru a vedea lista jucatorilor disponibili:\n";
 		std::getline(std::cin, str);
