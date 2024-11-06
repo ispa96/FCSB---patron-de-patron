@@ -120,11 +120,17 @@ int main()
 		championship.display_rank();
 		std::cout << '\n';
 
-		std::cout << "[WARNIMG]: Asa arata clasamentul dupa primele 15 meciuri !\n[WARNIMG]: Urmeaza perioada de transferuri !\n";
-		std::cout << "[WARNING]: Bugetul echipei este " << team.get_budget() << " euro\n";
-		std::cout << "[WARNING]: Acestia sunt jucatorii transferabili:\n\n";
+		std::cout << "[WARNIMG]: Asa arata clasamentul dupa primele 15 meciuri !\n";
+		std::cout << "[WARNIMG]: Urmeaza perioada de transferuri !\n";
+		std::cout << "[WARNIMG]: Apasa [ENTER] pentru a vedea lista jucatorilor disponibili:\n";
+		std::getline(std::cin, str);
 
+		std::cout << "[WARNING]: Acestia sunt jucatorii transferabili:\n\n";
 		transfermarkt.get_players();
+
+		std::cout << "[WARNING]: Apasa [ENTER] pentru a vedea bugetul echipei!\n";
+		std::getline(std::cin, str);
+		std::cout << "[WARNING]: Bugetul echipei tale este in valoare de " << team.get_budget() << " milioane de euro !\n\n";
 
 		std::cout << "\n\nDo you want to be the boss for the next year?\n";
 		std::cin >> str;
