@@ -12,7 +12,7 @@ private:
 
 public:
 	Championship();
-	std::string get_name();
+	void get_name();
 	void add_team(Team);
 	void display_rank();
 	std::vector<Team> get_teams();

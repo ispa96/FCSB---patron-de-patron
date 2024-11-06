@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <iostream>
+#include <Windows.h>
 
 Championship::Championship() {
 	m_name = "SUPERLIGA";
@@ -38,8 +39,9 @@ Championship::Championship() {
 	m_teams.emplace_back(t15);
 }
 
-std::string Championship::get_name() {
-	return m_name;
+void Championship::get_name() {
+	for (unsigned int i = 0; i < m_name.size(); i++)
+		std::cout << m_name[i], Sleep(100);
 }
 
 std::vector<Team> Championship::get_teams() {
@@ -58,7 +60,7 @@ void Championship::display_rank() {
 	sort(m_teams.begin(), m_teams.end(), cmp);
 
 	for (auto& i : m_teams)
-		std::cout << i.get_points() << " pts. " << i.get_name() << '\n';
+		std::cout << i.get_points() << " pts. " << i.get_name() << '\n', Sleep(700);
 }
 
 void Championship::set_teams(std::vector<Team>& vec) {

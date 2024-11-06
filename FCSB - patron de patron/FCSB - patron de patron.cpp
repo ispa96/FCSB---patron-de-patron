@@ -10,6 +10,7 @@
 #include <fstream>
 #include <cstdlib>
 #include <ctime>
+#include <Windows.h>
 
 #include "Championship.h"
 #include "Team.h"
@@ -45,7 +46,16 @@ int main()
 		Championship championship;
 		/// initializeaza lista cu jucatorii de pe Transfermarkt
 		Transfermarkt transfermarkt;
-		std::cout << "*** " << championship.get_name() << " ***\n[WARNING]: Prima parte a SUPERLIGII va contine primele 15 meciuri din acest sezon.\n";
+
+		std::string string = "*****";
+		for (unsigned int i = 0; i < string.size(); i++)
+			std::cout << string[i], Sleep(100);
+		std::cout << ' ';
+		championship.get_name();
+		std::cout << ' ';
+		for (unsigned int i = 0; i < string.size(); i++)
+			std::cout << string[i], Sleep(100);
+		std::cout << "\n[WARNING]: Prima parte a SUPERLIGII va contine primele 15 meciuri din acest sezon.\n";
 
 		/// adaug echipa mea in championship + initializam lotul echipei + initializam meciurile echipei
 		Team team("FCSB");
@@ -63,6 +73,8 @@ int main()
 
 		/// pentru randomizare
 		srand(static_cast <unsigned int> (time(0)));
+																							/// PRIMA PARTE A CAMPIONATULUI
+		/// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 		/// joaca primele 15 meciuri din campionat
 		for (auto& _team : team.play_matches()) {
@@ -120,6 +132,9 @@ int main()
 		championship.display_rank();
 		std::cout << '\n';
 
+																						/// PERIOADA DE TRANSFERURI
+		/// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 		std::cout << "[WARNIMG]: Asa arata clasamentul dupa primele 15 meciuri !\n";
 		std::cout << "[WARNIMG]: Urmeaza perioada de transferuri !\n";
 		std::cout << "[WARNIMG]: Apasa [ENTER] pentru a vedea lista jucatorilor disponibili:\n";
@@ -132,11 +147,13 @@ int main()
 		std::getline(std::cin, str);
 		std::cout << "[WARNING]: Bugetul echipei tale este in valoare de " << team.get_budget() << " milioane de euro !\n\n";
 
+																						/// A DOUA PARTE A CAMPIONATULUI
+		/// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 		std::cout << "\n\nDo you want to be the boss for the next year?\n";
 		std::cin >> str;
 		transform_answer(str);
-		if (str == "NO")	/// daca nu vrea sa mai continue
-			participate = false;
+		if (str == "NO") participate = false;	/// daca nu vrea sa mai continue
 	}
 
 	system("cls");

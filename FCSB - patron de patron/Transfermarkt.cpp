@@ -3,6 +3,7 @@
 
 #include <fstream>
 #include <string>
+#include <Windows.h>
 
 std::ifstream read("Transfermarkt.in");
 
@@ -34,5 +35,5 @@ Transfermarkt::Transfermarkt() {
 
 void Transfermarkt::get_players() {
 	for (auto& player : m_players)
-		player.get_details(), std::cout << '\n';
+		player.get_details(), std::cout << '\n', Sleep(700);
 }
