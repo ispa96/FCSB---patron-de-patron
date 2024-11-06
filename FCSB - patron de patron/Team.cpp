@@ -73,8 +73,16 @@ unsigned int Team::get_points() {
 	return m_points;
 }
 
-void Team::increase_points() {
+void Team::win_increase_points() {
 	m_points += 3;
+}
+
+void Team::draw_increase_points() {
+	m_points++;
+}
+
+void Team::set_points(unsigned int& num) {
+	m_points = num;
 }
 
 std::vector<Team> Team::play_matches() {

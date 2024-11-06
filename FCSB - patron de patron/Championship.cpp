@@ -60,3 +60,7 @@ void Championship::display_rank() {
 	for (auto& i : m_teams)
 		std::cout << i.get_points() << " pts. " << i.get_name() << '\n';
 }
+
+void Championship::set_teams(std::vector<Team>& vec) {
+	m_teams = vec;
+}

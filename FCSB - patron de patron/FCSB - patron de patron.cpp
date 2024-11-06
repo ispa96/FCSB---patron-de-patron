@@ -36,23 +36,30 @@ int main()
 	bool participate = true;
 	std::string str;
 
-	std::cout << "--- Welcome to your new club! ---\n";
-	std::cout << "Press [ENTER] to start the adventure!\n";
+	std::cout << "--- Bun venit la noul tau club ! ---\n";
+	std::cout << "Apasa [ENTER] pentru a incepe aventura !\n";
 	std::getline(std::cin, str);
 
 	while (participate) {
 		/// o sa inceapa meciurile din campionat
 		Championship championship;
-		
 		/// initializeaza lista cu jucatorii de pe Transfermarkt
 		Transfermarkt transfermarkt;
-		std::cout << "*** " << championship.get_name() << " ***\n[WARNING]: Prima parte a SUPERLIGII va contine primele 15 meciuri din acest sezon.\n[WARNING]: Bafta !!!\n\n";
+		std::cout << "*** " << championship.get_name() << " ***\n[WARNING]: Prima parte a SUPERLIGII va contine primele 15 meciuri din acest sezon.\n";
 
 		/// adaug echipa mea in championship + initializam lotul echipei + initializam meciurile echipei
 		Team team("FCSB");
 		championship.add_team(team);
 		team.init_playerlist();
 		team.init_matches();
+
+		std::cout << "[WARNING]: Asa arata tabloul cu echipele inainte de inceperea partidelor:\n\n";
+		championship.display_rank();
+		std::cout << "\n";
+
+		std::cout << "[WARNING]: Multa Bafta !!!\n\n";
+		std::cout << "[WARNING]: Apasa [ENTER] pentru derularea primelor 15 meciuri din campionat !\n";
+		std::getline(std::cin, str);
 
 		/// pentru randomizare
 		srand(static_cast <unsigned int> (time(0)));
@@ -63,26 +70,50 @@ int main()
 			int goals2 = rand() % 100 + 1;
 
 			// std::cout << goals1 << ' ' << goals2 << '\n';
-			if (goals1 > goals2) team.increase_points();
+			if (goals1 > goals2) team.win_increase_points();
+			else team.draw_increase_points();
 		}
 
-		/// scoate echipa cu punctajul vechi si o baga cu punctajul nou
+		/// scoate echipa cu punctajul vechi si o baga cu punctajul nou (echipa mea)
 		auto teams = championship.get_teams();  
 		for (unsigned int i = 0; i < teams.size(); i++)
 			if (teams[i].get_name() == "FCSB") {
 				teams.erase(teams.begin() + i);
-				championship.add_team(team); 
+				teams.emplace_back(team);
 				break;
 			}
+		/// trebuie sa dam un punctaj random celorlalte echipe, in apropiere de punctajul exhipei noastre
+		unsigned int left = 0, right = 0;
+		if (team.get_points() <= 20) left = 1;
+		else left = team.get_points() - 20;
+		right = team.get_points() + 10;
+
+		for (auto& _team : team.play_matches()) {	/// luam fiecare adversara a echipei noastre
+			unsigned int num = 1000;	/// num o sa fie o valoare random intre left si right
+			while (num < left or num > right)
+				num = rand() % 100 + 1;
+
+			_team.set_points(num);	/// updatam punctele echipei respective
+
+			for (unsigned int i = 0; i < teams.size(); i++) {	/// cautam in echipele din campionat
+				if (teams[i].get_name() == _team.get_name()) {	/// cand o gasim
+					teams.erase(teams.begin() + i);	/// o stergem
+					teams.emplace_back(_team);
+					break;
+				}
+			}
+		}
+		championship.set_teams(teams);
 
 		/// afisarea clasamentului initial cu toate echipele
 		championship.display_rank();
 		std::cout << '\n';
 
+		std::cout << "[WARNIMG]: Asa arata clasamentul dupa primele 15 meciuri !\n[WARNIMG]: Urmeaza perioada de transferuri !";
+
 		std::cout << "\n\nDo you want to be the boss for the next year?\n";
 		std::cin >> str;
 		transform_answer(str);
-
 		if (str == "NO")	/// daca nu vrea sa mai continue
 			participate = false;
 	}
