@@ -34,5 +34,5 @@ Transfermarkt::Transfermarkt() {
 
 void Transfermarkt::get_players() {
 	for (auto& player : m_players)
-		player.get_details();
+		player.get_details(), std::cout << '\n';
 }

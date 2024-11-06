@@ -9,6 +9,7 @@ std::ifstream f("FCSB_TEAM.in");
 Team::Team(std::string name) {
 	m_name = name;
 	m_points = 0;
+	m_budget = 0;
 
 	/// initializeaza vectorul cu statusul echipei
 	for (unsigned int i = 0; i < 30; i++)
@@ -87,4 +88,20 @@ void Team::set_points(unsigned int& num) {
 
 std::vector<Team> Team::play_matches() {
 	return m_matches;
+}
+
+void Team::win_increase_budget(const unsigned int& value) {
+	m_budget += value;
+}
+
+void Team::draw_increase_budget(const unsigned int& value) {
+	m_budget += value;
+}
+
+void Team::game_increase_budget(unsigned int& value) {
+	m_budget += value;
+}
+
+unsigned int Team::get_budget() {
+	return m_budget;
 }

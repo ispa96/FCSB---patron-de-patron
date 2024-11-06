@@ -9,7 +9,13 @@ Player::Player(std::string name1, std::string name2, std::string position, unsig
 }
 
 void Player::get_details() {
-	std::cout << m_firstname << ' ' << m_lastname << ' ' << m_position << ' ' << m_value << '\n';
+	std::cout << "PRENUME: " << m_firstname << '\n';
+	std::cout << "NUME: " << m_lastname << '\n';
+	std::cout << "POZITIE: " << m_position << '\n';
+	std::cout << "VALOARE: " << m_value;
+
+	if (m_value == 1) std::cout << " milion de euro\n";
+	else std::cout << " milioane de euro\n";
 }
 
 void Player::update_performance() {

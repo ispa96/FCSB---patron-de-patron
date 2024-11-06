@@ -69,9 +69,20 @@ int main()
 			int goals1 = rand() % 100 + 1;
 			int goals2 = rand() % 100 + 1;
 
+			unsigned int price_ticket = rand() % 100 + 1;
+			unsigned int supporters = rand() % 100 + 1;
+			unsigned int value = supporters * (supporters + 10) * price_ticket * 10;
+			team.game_increase_budget(value);
+
 			// std::cout << goals1 << ' ' << goals2 << '\n';
-			if (goals1 > goals2) team.win_increase_points();
-			else team.draw_increase_points();
+			if (goals1 > goals2) {	/// daca echipa mea a castigat
+				team.win_increase_points();
+				team.win_increase_budget(100000);
+			}
+			else {	/// daca echipa mea a facut egal
+				team.draw_increase_points();
+				team.draw_increase_budget(50000);
+			}
 		}
 
 		/// scoate echipa cu punctajul vechi si o baga cu punctajul nou (echipa mea)
@@ -109,7 +120,11 @@ int main()
 		championship.display_rank();
 		std::cout << '\n';
 
-		std::cout << "[WARNIMG]: Asa arata clasamentul dupa primele 15 meciuri !\n[WARNIMG]: Urmeaza perioada de transferuri !";
+		std::cout << "[WARNIMG]: Asa arata clasamentul dupa primele 15 meciuri !\n[WARNIMG]: Urmeaza perioada de transferuri !\n";
+		std::cout << "[WARNING]: Bugetul echipei este " << team.get_budget() << " euro\n";
+		std::cout << "[WARNING]: Acestia sunt jucatorii transferabili:\n\n";
+
+		transfermarkt.get_players();
 
 		std::cout << "\n\nDo you want to be the boss for the next year?\n";
 		std::cin >> str;
